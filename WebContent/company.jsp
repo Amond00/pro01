@@ -78,7 +78,6 @@
     <header class="hd">
         <%@ include file="nav.jsp" %>
     </header>
-    <!--div.bread>div.bread_fr>a.home{HOME}+select#sel1.sel+select#sel2.sel-->
     <div class="content" id="page1">
         <figure class="vs">
             <img src="./lg_display_picture/product_main.png" alt="비주얼">
