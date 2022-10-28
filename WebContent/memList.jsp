@@ -90,7 +90,7 @@
 %>
 			<tr>
 					<td><%=cnt %></td>
-					<td><a href='memInfo.jsp?id=<%=rs.getString("id") %>'><%=rs.getString("id") %></a></td>
+					<td><a href='memberInfo.jsp?id=<%=rs.getString("id") %>'><%=rs.getString("id") %></a></td>
 					<td><%=rs.getString("name") %></td>
 					<td><%=rs.getString("regdate") %></td>
 			</tr>

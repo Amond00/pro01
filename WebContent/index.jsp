@@ -12,16 +12,18 @@
     .page { clear:both; width: 100%; }
     .page_wrap { width: 1200px; margin: 0 auto; }
     #page1, #page3 { background-color:#ececec; }
-    .page_tit { text-align: center; font-size:32px; padding-top:1.2em; padding-bottom: 0.8em; }
+    .page_tit { text-align: center; font-size:32px; padding-top:1.2em; padding-bottom: 0.8em; color:green; }
+    .page_tit2 { text-align: center; font-size:32px; padding-top:1.2em; padding-bottom: 0.8em; background-image: linear-gradient(90deg, red, orange, yellow, green, blue, navy, purple);
+    -webkit-background-clip: text; color: transparent; font-weight: bold; }
     .lst { clear:both; width: 1200px; }
     .lst:after { content:""; display:block; clear: both;}
     .lst li { margin-bottom: 40px; }
-    .lst li.left { float:left; width: 816px; height: 459px;}
+    .lst li.left { float:left; margin-left:220px; display:block;}
     .lst li.right { float:right; width:350px; height: 459px; }
     .ico_lst { clear:both; width: 100%; overflow:hidden; }
     .ico_lst li a { display:block; background-repeat: no-repeat; background-position:0px center; background-size:auto 80%; padding-left: 55px; }
-    .cate_tit { color:#222; font-size:20px; padding-bottom: 0.5em; }
-    .cate_com { color:#222; font-size:14px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+    .cate_tit { font-weight: bolder; color:#00a000; font-size:20px; padding-bottom: 0.5em; }
+    .cate_com { color:green; font-size:14px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
 
     #page2 { background-color: rgba(230, 248, 255, 0.5); }
     .pic_lst { clear:both; width: 100%; padding-bottom: 80px; }
@@ -110,7 +112,7 @@
         </section>
         <section class="page" id="page2">
             <div class="page_wrap">
-                <h2 class="page_tit">OLED Features</h2>
+                <h2 class="page_tit2">OLED Features</h2>
                 <ul class="pic_lst">
                     <li>
                         <a href="">

@@ -1,50 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
+<%@ page import="java.util.*, java.sql.*, java.text.*" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
 	
 	String sid = (String) session.getAttribute("id");
-	
 	int no = Integer.parseInt(request.getParameter("no"));
-	String title = "";
-	String content = "";
-	String uname = "";
-	String resdate = "";
-	String author = "";
-	
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String dbid = "system";
-	String dbpw = "1234";
-	String sql = "";
-	
-	try {
-		Class.forName("oracle.jdbc.OracleDriver");
-		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "select a.no no, a.title title, a.content content, ";
-		sql = sql + "b.name name, a.resdate resdate, a.author author ";
-		sql = sql + "from board a inner join member b ";
-		sql = sql + "on a.author=b.id where a.no=?";
+	String ftitle = "";
+	String fcontent = "";
+	String fresdate = "";
+	String fauthor = "";
+%>
+<%@ include file="connectionPool.conf" %>
+<%
+		sql = "select * from faq where no=?";
 		pstmt = con.prepareStatement(sql);
 		pstmt.setInt(1, no);
 		rs = pstmt.executeQuery();
 		
-		if(rs.next()){
-			title = rs.getString("title");
-			content = rs.getString("content");
-			uname = rs.getString("name");
-			resdate = rs.getString("resdate");
-			author = rs.getString("author");
+		if(rs.next()){				
+			ftitle = rs.getString("title");
+			fcontent = rs.getString("content");
+			fauthor = rs.getString("author");
+			fresdate = rs.getString("resdate");
 		}
 	} catch(Exception e){
 		e.printStackTrace();
-	} finally {
+	}	finally {
 		rs.close();
 		pstmt.close();
 		con.close();
@@ -98,12 +82,12 @@
         <div class="bread">
             <div class="bread_fr">
                 <a href="index.jsp" class="home">HOME</a> &gt;
-                <span class="sel">글 상세 내용</span>
+                <span class="sel">자주 물으시는 질문 및 답변 상세 내용</span>
             </div>
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">글 상세 내용</h2>
+                <h2 class="page_title">자주 물으시는 질문<br> 및 답변 상세 내용</h2>
   				<div class="tb_fr">
   					<table class="tb">
   						<tbody>             
@@ -113,29 +97,29 @@
 							</tr>
 							<tr>
 								<th>제목</th>
-								<td><%=title %></td>
+								<td><%=ftitle %></td>
 							</tr>
 							<tr>
 								<th>내용</th>
-								<td><%=content %></td>
+								<td><%=fcontent %></td>
 							</tr>
 							<tr>
 								<th>작성자</th>
-								<td><%=uname %></td>
+								<td><%=fauthor %></td>
 							</tr>
 							<tr>
 								<th>작성일</th>
-								<td><%=resdate %></td>
+								<td><%=fresdate %></td>
 							</tr>
 						</tbody> 
 					</table>
 					<div class="btn_group">
-						<a href="boardList.jsp" class="btn primary">목록으로 돌아가기</a>
+						<a href="faq.jsp" class="btn primary">목록으로 돌아가기</a>
 						<%
-							if(sid.equals("admin") || sid.equals(author)) {
+							if(sid.equals("admin")) {
 						%>
-						<a href='boardModify.jsp?no=<%=no %>' class="btn primary">수정</a>
-						<a href='boardDel.jsp?no=<%=no %>' class="btn primary">삭제</a>
+						<a href='faqModify.jsp?no=<%=no %>' class="btn primary">수정</a>
+						<a href='faqDel.jsp?no=<%=no %>' class="btn primary">삭제</a>
 						<% } %>
 					</div>
 				</div>

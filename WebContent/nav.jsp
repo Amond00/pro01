@@ -9,7 +9,6 @@
 	String email = (String) session.getAttribute("email");
 	
 	String msg = (String) application.getAttribute("msg");
-	
 %>
 <div class="hd_wrap">
             <a href="index.jsp" class="logo"><img src="./lg_display_picture/lg_logo2.png" alt=""></a>
@@ -20,7 +19,7 @@
 		            <div>
 		            	<span class="ip_print" style=" color:#4AA8D8; font-weight:bolder; " ><%=name %>님</span>
 						<a href="memList.jsp">회원관리</a>
-						<a href="boardList.jsp" style=" color:yellow; font-weight:bolder; " >게시판관리</a>
+						<a href="boardList.jsp" style=" color:red; font-weight:bolder; " >게시판관리</a>
 						<a href="logout.jsp">로그아웃</a>
 						<a href="sitemap.jsp"><img src="./lg_display_picture/sitemap4.png" width="25" alt=""></a>
 					</div>
@@ -30,7 +29,7 @@
 					<div>
 		            	<span class="ip_print" style=" color:#4AA8D8; font-weight:bolder; " ><%=name %>님</span>
 		            	<a href="logout.jsp">로그아웃</a>
-		                <a href="memInfo2.jsp">마이페이지</a>
+		                <a href="memInfo.jsp">마이페이지</a>
 		                <a href="boardList.jsp" style=" color:yellow; font-weight:bolder; " >-게시판-</a>
 		                <a href="sitemap.jsp"><img src="./lg_display_picture/sitemap4.png" width="25" alt=""></a>
 		            </div>
@@ -40,7 +39,6 @@
 		 			<div>
 		                <a href="login.jsp">로그인</a>
 		                <a href="term.jsp">회원가입</a>
-		                <a href="boardList.jsp" style=" color:yellow; font-weight:bolder; " >게시판</a>
 		                <a href="sitemap.jsp"><img src="./lg_display_picture/sitemap4.png" width="25" alt=""></a>
 	            	</div>
 	           	<%

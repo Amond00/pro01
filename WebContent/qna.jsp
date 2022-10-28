@@ -7,34 +7,9 @@
 	response.setContentType("text/html; charset=UTF-8");
 	
 	String sid = (String) session.getAttribute("id");
-	
-	Connection con = null;
-	PreparedStatement pstmt = null; //prestatement
-	ResultSet rs = null; //결과 저장
-	
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String dbid = "system";
-	String dbpw = "1234";
-	String sql = "";
-	int amount = 0;
-	
-	try {
-		Class.forName("oracle.jdbc.OracleDriver");
-		con = DriverManager.getConnection(url, dbid, dbpw);
-		
-		sql = "select count(*) cnt from board";
-		pstmt = con.prepareStatement(sql);
-		rs = pstmt.executeQuery();
-		if(rs.next()){
-			amount = rs.getInt("cnt");
-			
-		rs.close();
-		pstmt.close();
-		pstmt = null;
-		rs = null;
-		
-		}
+	int cnt = 0; 
 %>
+<%@ include file="connectionPool.conf" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,15 +43,12 @@
 	.btn_group .btn { display:block; float:left; margin:20px; min-width:100px; padding:8px; font-size:14px;
 	line-height:24px; border-radius:36px; border:2px solid #333; text-align:center; }
 	.btn_group .btn.primary { background-color:#333; color:#fff; margin-left:-320px; display:block;}
-	.btn_group .btn.primary2 { background-color:#333; color:#fff; margin-left:-160px; display:block;}
-	.btn_group .btn.primary3 { background-color:#333; color:#fff; margin-left: -1px; display:block;}
-	.btn_group .btn.primary4 { background-color:#333; color:#fff; margin-left: 160px; display:block;}
+	.btn_group .btn.primary2 { background-color:#333; color:#fff; margin-left:-152px; display:block;}
+	.btn_group .btn.primary3 { background-color:#333; color:#fff; display:block;}
 	.btn_group .btn.primary:hover { background-color:deepskyblue; color:red;}
 	.btn_group .btn.primary2:hover { background-color:deepskyblue; color:red;}
 	.btn_group .btn.primary3:hover { background-color:deepskyblue; color:red;}
-	.btn_group .btn.primary4:hover { background-color:deepskyblue; color:red;}
     </style>
-    
     <script>
 	    $(document).ready( function () {
 	        $('.tb').DataTable();
@@ -88,20 +60,19 @@
     <header class="hd">
 		<%@ include file="nav.jsp" %>
     </header>
-    <div class="content">
+<div class="content">
         <figure class="vs">
             <img src="./lg_display_picture/product_main.png" alt="비주얼">
         </figure>
         <div class="bread">
             <div class="bread_fr">
                 <a href="index.jsp" class="home">HOME</a> &gt;
-                <span class="sel">게시판</span>
+                <span class="sel">QnA 게시판</span>
             </div>
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">LG DISPLAY - 게시판</h2> 
-                <p style=" color:black; font-weight:bolder; "><%="전체 글 수 '"+amount+"' 개" %></p>
+                <h2 class="page_title">LG DISPLAY - QnA 질문 및 답변</h2> 
   				<div class="tb_fr" >
   					<table class="tb">
   						<thead>
@@ -115,15 +86,11 @@
   						<tbody>             
 <%		
 		
-		//게시글 검색
-		sql = "select a.no no, a.title title, a.content content, ";
-		sql = sql + "b.name name, a.resdate resdate ";
-		sql = sql + "from board a inner join member b ";
-		sql = sql + "on a.author=b.id order by a.resdate desc";
+		//질문글 검색
+		sql = "select * from qna where lev=0 order by parno asc, lev asc";
 		pstmt = con.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		
-		int cnt = 0; //임의의 변수 실제 시퀸스는 들쭉날쭉.		
 		while(rs.next()){
 			cnt++;
 			SimpleDateFormat yymmdd = new SimpleDateFormat("yyyy-MM-dd");
@@ -131,41 +98,26 @@
 %>
 			<tr>
 					<td><%=cnt %></td>
-					<%
-					if(sid!=null) {
-					%>
-						<td><a href='boardDetail.jsp?no=<%=rs.getInt("no") %>'><%=rs.getString("title") %></a></td>
-					<%
-					} else {
-					%>
-						<td><%=rs.getString("title") %></td>
-					<%
-					}
-					%>
-					<td><%=rs.getString("name") %></td>
+					<td>
+					<% if(rs.getInt("lev")==0) { %>
+						<a href='qnaDetail.jsp?no=<%=rs.getInt("no") %>'style="font-weight:bolder; color:blue; "><%="QnA 질문 : "+rs.getString("title")%></a>
+					<% } %>
+					</td>
+					<td><%=rs.getString("author") %></td>
 					<td><%=date %></td>
 			</tr>
 <%
 		}
-	} catch(Exception e){
-		e.printStackTrace();
-	} finally {
-		rs.close();
-		pstmt.close();
-		con.close();
-	}
 %>
+<%@ include file="connectionClose.conf" %>
 						</tbody> 
 					</table>
 					<div class="btn_group">
 					<%
 					if(sid!=null) {
 					%>
-						<a href="boardWrite.jsp" class="btn primary">글쓰기</a> <% } %>
-						<a href="faq.jsp" class="btn primary2" style="clear:both; margin-top:-63px; color: #fff; background-color:gray;; ">FaQ게시판으로</a>
-						<a href="qna.jsp" class="btn primary3" style="clear:both; margin-top:-63px; color: #fff; background-color:gray;; ">QnA게시판으로</a>
-						<a href="online.jsp" class="btn primary4" style="clear:both; margin-top:-63px; color: black; background-color:#d3d3d3; ">온라인 상담 하기</a>
-						
+						<a href="qnaWrite.jsp" class="btn primary">QnA글쓰기</a> <% } %>
+						<a href="boardList.jsp" class="btn primary2">게시판으로 돌아가기</a>
 					</div>
 				</div>
 			</div>

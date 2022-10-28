@@ -117,6 +117,7 @@
                                 <li><a href="login.jsp">로그인</a></li>
                                 <li><a href="term.jsp">회원가입</a></li>
                                 <li><a href="boardList.jsp">게시판</a></li>
+                                <li><a href="boardList.jsp">QnA게시판</a></li>
                                 <li><a href="sitemap.jsp">사이트맵</a></li>
                                 <li><a href="member01.jsp" class="dpc">개인정보 처리 방침</a></li>
                                 <li><a href="member02.jsp" class="dpc">이용약관</a></li>

@@ -1,5 +1,5 @@
 -- 글 추가 (등록)
-create sequence bno_seq;
+create sequence bno_seq start with 1 increment by 1;
 insert into board values(bno_seq.nextval, '','','','','');
 
 

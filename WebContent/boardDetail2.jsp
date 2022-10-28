@@ -1,38 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
 <%
-
+	request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
+	response.setContentType("text/html; charset=UTF-8");
+	
 	String sid = (String) session.getAttribute("id");
 	
-	int uno = Integer.parseInt(request.getParameter("no"));
-	String utitle = "";
-	String ucontent = "";
+	int no = Integer.parseInt(request.getParameter("no"));
+	String title = "";
+	String content = "";
 	String uname = "";
-	String uresdate = "";
+	String resdate = "";
 	String author = "";
-	
-
 %>
 <%@ include file="connectionPool.conf" %>
 <%
-
-sql = "select a.no no, a.title tit, a.content con, b.name nm, to_char(a.resdate, 'yyyy-MM-dd') res from board a inner join member b on a.author=b.id where a.no=1";
-pstmt = con.prepareStatement(sql);
-rs = pstmt.executeQuery();
-
-if(rs.next()){
-	utitle = rs.getString("tit");
-	ucontent = rs.getString("con");
-	uname = rs.getString("nm");
-	uresdate = rs.getString("res");
-}
+		sql = "select a.no no, a.title title, a.content content, ";
+		sql = sql + "b.name name, a.resdate resdate, a.author author ";
+		sql = sql + "from board a inner join member b ";
+		sql = sql + "on a.author=b.id where a.no=?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()){
+			title = rs.getString("title");
+			content = rs.getString("content");
+			uname = rs.getString("name");
+			resdate = rs.getString("resdate");
+			author = rs.getString("author");
+		}
 %>
 <%@ include file="connectionClose.conf" %>
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="head.jsp" %>
-<style>
+	<%@ include file="head.jsp" %>
+    <style>
     /* header.css */
     .hd { position:fixed; }
     /* content */
@@ -60,10 +66,9 @@ if(rs.next()){
 	.btn_group { clear:both; width:580px; margin:20px auto; }
 	.btn_group .btn { display:block; float:left; margin:20px; min-width:100px; padding:8px; font-size:14px;
 	line-height:24px; border-radius:36px; border:2px solid #333; text-align:center; }
-	.btn_group .btn.primary { background-color:#333; color:#fff; margin-left:-5px; display:block;}
+	.btn_group .btn.primary { background-color:#333; color:#fff; margin-left:-5px; display:block; margin-right:72.7px; }
 	.btn_group .btn.primary:hover { background-color:deepskyblue; color:red; }
-    
-</style>
+    </style>
 </head>
 <body>
 <div class="wrap">
@@ -88,15 +93,15 @@ if(rs.next()){
   						<tbody>             
 							<tr>
 								<th>글 번호</th>
-								<td><%=uno %></td>
+								<td><%=no %></td>
 							</tr>
 							<tr>
 								<th>제목</th>
-								<td><%=utitle %></td>
+								<td><%=title %></td>
 							</tr>
 							<tr>
 								<th>내용</th>
-								<td><%=ucontent %></td>
+								<td><%=content %></td>
 							</tr>
 							<tr>
 								<th>작성자</th>
@@ -104,17 +109,17 @@ if(rs.next()){
 							</tr>
 							<tr>
 								<th>작성일</th>
-								<td><%=uresdate %></td>
+								<td><%=resdate %></td>
 							</tr>
 						</tbody> 
 					</table>
 					<div class="btn_group">
 						<a href="boardList.jsp" class="btn primary">목록으로 돌아가기</a>
 						<%
-							if(sid.equals("admin") || id.equals("id")) {
+							if(sid.equals("admin") || sid.equals(author)) {
 						%>
-						<a href='boardModify.jsp?no=<%=uno %>' class="btn primary">수정</a>
-						<a href='boardDel.jsp?no=<%=uno %>' class="btn primary">삭제</a>
+						<a href='boardModify.jsp?no=<%=no %>' class="btn primary">수정</a>
+						<a href='boardDel.jsp?no=<%=no %>' class="btn primary">삭제</a>
 						<% } %>
 					</div>
 				</div>

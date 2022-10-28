@@ -25,7 +25,7 @@
     padding: 24px; border:2px solid #eee; height:600px; overflow-y:auto; }
     .btn_fr { width: 900px; margin:30px auto;    padding: 24px; }
     .in_btn { display:block; background-color:#333; min-width:120px; height: 32px; 
-    line-height: 32px; border-radius:20px; float:left; margin-left:80px; margin-right:20px; cursor:pointer; }
+    line-height: 32px; border-radius:20px; float:left; margin-left:-5px; margin-right:20px; cursor:pointer; }
     .in_btn:hover { background-color: deepskyblue; }
     </style>
     <link rel="stylesheet" href="footer.css">

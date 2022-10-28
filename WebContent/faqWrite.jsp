@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, java.sql.*" %>
+<%@ page import = "java.util.*, java.sql.*, java.text.*" %>
 <%
 	String sid = (String) session.getAttribute("id");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file="head.jsp" %>
-    <style>
+<%@ include file="head.jsp" %>
+<meta charset="UTF-8">
+<style>
     /* header.css */
     .hd { position:fixed; }
     /* content */
@@ -46,57 +47,77 @@
     </style>
 </head>
 <body>
-<div class="wrap">
-    <header class="hd">
-		<%@ include file="nav.jsp" %>
-    </header>
-    <div class="content">
+<header class="hd">
+	<%@ include file="nav.jsp" %>
+</header>
+<div class="content">
         <figure class="vs">
             <img src="./lg_display_picture/product_main.png" alt="비주얼">
         </figure>
         <div class="bread">
             <div class="bread_fr">
                 <a href="index.jsp" class="home">HOME</a> &gt;
-                <span class="sel">글쓰기</span>
+                <span class="sel">FaQ 질문 및 답변 작성 </span>
             </div>
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">글쓰기</h2>
+                <h2 class="page_title">FaQ 질문 및 답변 작성</h2>
   				<div class="frm1">
-  					<form name="frm" action="boardWritePro.jsp" method="post" class="frm">
+  					<form name="frm" action="faqWritePro.jsp" method="post" class="frm">
 	  					<table class="tb">
 	  						<tbody>             
 								<tr>
-									<th>제목</th>
+									<th>질문 제목</th>
 									<td><input type="text" name="title" id="title" class="in_data" required /></td>
 								</tr>
 								<tr>
-									<th>내용</th>
+									<th>질문 내용</th>
 									<td>
-										<textarea cols="100" rows="8" name="content" id="content"></textarea>
+										<textarea cols="100" rows="8" name="content" id="content" class="in_data2" ></textarea>
 									</td>
 								</tr>
 								<tr>
 									<th>작성자</th>
 									<td><%=sid %>
-									<input type="hidden" name="author" id="author" value="<%=sid %>"> 
+									<input type="hidden" name="author" id="author" value="<%=sid %>" readonly required > 
+									</td>
+								</tr>
+							</tbody> 
+						</table>
+						
+						<table class="tb">
+	  						<tbody>             
+								<tr>
+									<th>답변 제목</th>
+									<td><input type="text" name="title2" id="title2" class="in_data" required /></td>
+								</tr>
+								<tr>
+									<th>답변 내용</th>
+									<td>
+										<textarea cols="100" rows="8" name="content2" id="content2" class="in_data2" ></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th>작성자</th>
+									<td><%=sid %>
+									<input type="hidden" name="author" id="author" value="<%=sid %>" readonly required > 
 									</td>
 								</tr>
 							</tbody> 
 						</table>
 						<div class="btn_group">
 							<button type="submit" class="btn primary">글쓰기</button>
-							<a href="boardList.jsp" class="btn primary2">목록으로 돌아가기</a>
+							<a href="faq.jsp" class="btn primary2">목록으로 돌아가기</a>
 						</div>
 					</form>
 				</div>
 			</div>
         </section>
-    </div>
-    <footer class="ft">
-		<%@ include file="footer.jsp" %>
-    </footer>
 </div>
+
+<footer class="ft">
+	<%@ include file="footer.jsp" %>
+</footer>
 </body>
-</html>
+</html>				

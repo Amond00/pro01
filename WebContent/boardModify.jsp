@@ -7,8 +7,8 @@
 	response.setContentType("text/html; charset=UTF-8");
 	
 	String sid = (String) request.getAttribute("id");
-	
 	int no = Integer.parseInt(request.getParameter("no"));
+	
 	String title = "";
 	String content = "";
 	String uname = "";

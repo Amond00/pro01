@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, java.sql.*" %>
+
 <%
-	String sid = (String) session.getAttribute("id");
+	String uid = (String) session.getAttribute("id");
+	String author = (String) session.getAttribute("author");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file="head.jsp" %>
-    <style>
+<%@ include file="head.jsp" %>
+<style>
     /* header.css */
     .hd { position:fixed; }
     /* content */
@@ -35,21 +37,24 @@
     .tb tr:last-child th { border-bottom:2px solid #333; }
     .tb tr:last-child td { border-bottom:2px solid #333; }
 	.btn_group { clear:both; width:580px; margin:20px auto; }
-	.btn_group .btn { display:block; float:left; margin:20px; min-width:100px; padding:8px; font-size:14px;
-	line-height:24px; border-radius:36px; border:2px solid #333; text-align:center; }
-	.btn_group .btn.primary { background-color:#333; color:#fff; display:block; margin-left:-161px }
-	.btn_group .btn.primary2 { background-color:#333; color:#fff; display:block; }
+	.btn_group .btn { display:block; float:left; margin:20px; min-width:100px; padding:0.2px; font-size:14px;
+	line-height:24px; border-radius:36p; border:2px solid #333; text-align:center; }
+	.btn_group .btn.primary { background-color:#333; color:#fff; display:block; margin-left:-159px; margin-top:-30px; }
+	.btn_group .btn.primary2 { background-color:#333; color:#fff; display:block; margin-right:-300px; margin-top:-30px;}
 	.btn_group .btn.primary:hover { background-color:deepskyblue; color:red; }
 	.btn_group .btn.primary2:hover { background-color:deepskyblue; color:red; }
 	.in_data { display:block; float:left; line-height:36px; padding-left:6px; width:690px;}
 	textarea { padding:6px; }
-    </style>
+</style>
+<meta charset="UTF-8">
+<title>boardWrite2</title>
 </head>
 <body>
 <div class="wrap">
-    <header class="hd">
+	<header class="hd">
 		<%@ include file="nav.jsp" %>
-    </header>
+	</header>
+
     <div class="content">
         <figure class="vs">
             <img src="./lg_display_picture/product_main.png" alt="비주얼">
@@ -57,19 +62,21 @@
         <div class="bread">
             <div class="bread_fr">
                 <a href="index.jsp" class="home">HOME</a> &gt;
-                <span class="sel">글쓰기</span>
+                <span class="sel">글 쓰기</span>
             </div>
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">글쓰기</h2>
+                <h2 class="page_title">글 쓰기</h2>
   				<div class="frm1">
-  					<form name="frm" action="boardWritePro.jsp" method="post" class="frm">
+  					<form name="frm" action="boardWritePro2.jsp" method="post" class="frm">
 	  					<table class="tb">
 	  						<tbody>             
 								<tr>
 									<th>제목</th>
-									<td><input type="text" name="title" id="title" class="in_data" required /></td>
+									<td>
+										<input type="text" name="title" id="title" class="in_data" required />
+									</td>
 								</tr>
 								<tr>
 									<th>내용</th>
@@ -79,14 +86,14 @@
 								</tr>
 								<tr>
 									<th>작성자</th>
-									<td><%=sid %>
-									<input type="hidden" name="author" id="author" value="<%=sid %>"> 
+									<td><%=uid %>
+									<input type="hidden" name="author" id="author" value="<%=uid %>"> 
 									</td>
 								</tr>
 							</tbody> 
 						</table>
 						<div class="btn_group">
-							<button type="submit" class="btn primary">글쓰기</button>
+							<button type="submit" class="btn primary">글 쓰기</button>
 							<a href="boardList.jsp" class="btn primary2">목록으로 돌아가기</a>
 						</div>
 					</form>
@@ -99,4 +106,4 @@
     </footer>
 </div>
 </body>
-</html>
+</html>		
